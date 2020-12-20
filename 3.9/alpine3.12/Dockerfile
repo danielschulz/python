@@ -1,6 +1,7 @@
 
 FROM danielschulz/alpine:v3.12
 MAINTAINER Daniel Schulz <danielschulz2005@hotmail.com>
+LABEL BUILD_TIME="20201221_2009 UTC"
 
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:${PATH}
