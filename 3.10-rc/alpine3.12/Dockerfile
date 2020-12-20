@@ -1,9 +1,6 @@
 
 FROM danielschulz/alpine:v3.12
 MAINTAINER Daniel Schulz <danielschulz2005@hotmail.com>
-LABEL VISION="'We are stubborn on vision. We are flexible on details. We don’t give up on things easily.' (Jeff Bezos)" \
-    AGILE_MANIFESTO="https://agilemanifesto.org" \
-    SWE_MANIFESTO="https://manifesto.softwarecraftsmanship.org"
 
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:${PATH}
