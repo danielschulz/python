@@ -1,13 +1,12 @@
-#
-# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
-#
-# PLEASE DO NOT EDIT IT DIRECTLY.
-#
 
-FROM alpine:3.12
+FROM danielschulz/alpine:v3.12
+MAINTAINER Daniel Schulz <danielschulz2005@hotmail.com>
+LABEL VISION="'We are stubborn on vision. We are flexible on details. We don’t give up on things easily.' (Jeff Bezos)" \
+    AGILE_MANIFESTO="https://agilemanifesto.org" \
+    SWE_MANIFESTO="https://manifesto.softwarecraftsmanship.org"
 
 # ensure local python is preferred over distribution python
-ENV PATH /usr/local/bin:$PATH
+ENV PATH /usr/local/bin:${PATH}
 
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
@@ -23,26 +22,28 @@ RUN set -eux; \
 	;
 # other runtime dependencies for Python are installed later
 
-ENV GPG_KEY A035C8C19219BA821ECEA86B64E628F8D684696D
-ENV PYTHON_VERSION 3.10.0a2
+# use 3.6, 3.7, 3.8, 3.9, (as of now, use "master" for 3.10)
+ARG CPYTHON_GIT_URI="https://github.com/danielschulz/cpython.git"
+ARG CPYTHON_GIT_REFERENCE="v3.10.0a3"
+ARG PYTHON_VERSION="${CPYTHON_GIT_REFERENCE}"
+
+ENV PYTHON_VERSION=${PYTHON_VERSION}
 
 RUN set -ex \
 	&& apk add --no-cache --virtual .fetch-deps \
 		gnupg \
 		tar \
 		xz \
+		git \
 	\
-	&& wget -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
-	&& wget -O python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" \
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEY" \
-	&& gpg --batch --verify python.tar.xz.asc python.tar.xz \
-	&& { command -v gpgconf > /dev/null && gpgconf --kill all || :; } \
-	&& rm -rf "$GNUPGHOME" python.tar.xz.asc \
 	&& mkdir -p /usr/src/python \
-	&& tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
-	&& rm python.tar.xz \
-	\
+	&& time git clone \
+	     -b ${CPYTHON_GIT_REFERENCE} \
+	     --depth 1 \
+	     --single-branch \
+	     --recurse-submodules ${CPYTHON_GIT_URI} \
+	     /usr/src/python \
+	&& rm -rf /usr/src/python/.git \
 	&& apk add --no-cache --virtual .build-deps  \
 		bluez-dev \
 		bzip2-dev \
@@ -75,7 +76,7 @@ RUN set -ex \
 	&& cd /usr/src/python \
 	&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
 	&& ./configure \
-		--build="$gnuArch" \
+		--build="${gnuArch}" \
 		--enable-loadable-sqlite-extensions \
 		--enable-optimizations \
 		--enable-option-checking=fatal \
@@ -114,20 +115,20 @@ RUN cd /usr/local/bin \
 	&& ln -s python3-config python-config
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
-ENV PYTHON_PIP_VERSION 20.3.1
+ENV PYTHON_PIP_VERSION 20.3.3
 # https://github.com/pypa/get-pip
-ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/91630a4867b1f93ba0a12aa81d0ec4ecc1e7eeb9/get-pip.py
-ENV PYTHON_GET_PIP_SHA256 d48ae68f297cac54db17e4107b800faae0e5210131f9f386c30c0166bf8d81b7
+ENV PYTHON_GET_PIP_URL https://raw.githubusercontent.com/pypa/get-pip/${PYTHON_PIP_VERSION}/get-pip.py
+ENV PYTHON_GET_PIP_SHA256 6a0b13826862f33c13b614a921d36253bfa1ae779c5fbf569876f3585057e9d2
 
 RUN set -ex; \
 	\
-	wget -O get-pip.py "$PYTHON_GET_PIP_URL"; \
-	echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum -c -; \
+	wget -q -O get-pip.py "${PYTHON_GET_PIP_URL}"; \
+	echo "${PYTHON_GET_PIP_SHA256} *get-pip.py" | sha256sum -c -; \
 	\
 	python get-pip.py \
 		--disable-pip-version-check \
 		--no-cache-dir \
-		"pip==$PYTHON_PIP_VERSION" \
+		"pip==${PYTHON_PIP_VERSION}" \
 	; \
 	pip --version; \
 	\
