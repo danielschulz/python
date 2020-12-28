@@ -26,9 +26,10 @@ LABEL SUSTAINABLE_CULTURE="https://sloanreview.mit.edu/culture500/" \
     AUTHOR_DATES="MjAxODEyMTMgMjAxODEyMTcgMjAxOTEwMTUgMjAyMDA4MjEgMjAyMDA5MjYK" \
     THOUGH_LEADERSHIP_FINANCE_BLOG="https://medium.com/wbaa" \
     DEAL_W_TECH_DEBT="https://medium.com/swlh/technical-air-pollution-the-reality-of-technical-debt-5afd96321f46" \
-    BUILD_TIME_ALPINE="20201228_1027 UTC"
+    BUILD_TIME_ALPINE="20201228_1445 UTC" \
+    ONLY_DEAD_FISH_GO_W_FLOW="http://readingchomsky.blogspot.com/2014/07/noam-chomsky-2014-how-to-ruin-economy.html"
 
 RUN apk update && \
-    apk add --no-cache nmap nmap-scripts nmap-nselibs curl wget bind-tools bash curl wget
+    apk add --no-cache nmap nmap-scripts nmap-nselibs curl wget bind-tools bash curl wget socat
 
 CMD [ "bash" ]
