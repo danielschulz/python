@@ -22,7 +22,7 @@ RUN set -eux; \
 
 # use 3.6, 3.7, 3.8, 3.9, (as of now, use "master" for 3.10)
 ARG CPYTHON_GIT_URI="https://github.com/danielschulz/cpython.git"
-ARG CPYTHON_GIT_REFERENCE="v3.10.256a"
+ARG CPYTHON_GIT_REFERENCE="v3.10.256a_20201228_1455"
 ARG PYTHON_VERSION=${CPYTHON_GIT_REFERENCE}
 
 ENV PYTHON_VERSION=${PYTHON_VERSION}
