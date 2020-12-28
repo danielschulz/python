@@ -138,4 +138,7 @@ RUN set -ex; \
 		\) -exec rm -rf '{}' +; \
 	rm -f get-pip.py
 
+RUN echo -e "Current Python version is $( python -V ) \n(found in $( which python ))." && \
+    echo -e "Current PIP version is $( pip -V ) \n(found in $( which pip ))."
+
 CMD ["python3"]
