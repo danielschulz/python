@@ -1,10 +1,12 @@
-FROM alpine:3.12
+FROM alpine:3.12.3
 MAINTAINER Daniel Schulz <danielschulz2005@hotmail.com>
 
 LABEL SUSTAINABLE_CULTURE="https://sloanreview.mit.edu/culture500/" \
     CULTURE_EATS_STRATEGY="Unearthing the Roots of Corporate Social Irresponsibiity (https://www.zinio.com/de/reader/readsvg/447758/56)" \
     TEAM_GOALS="https://www.strategy-business.com/blog/Stretch-or-safe-The-art-of-setting-goals-for-your-teams?gko=4d547" \
     STRATEGIC_LEADERSHIP_PRINCIPLES="https://www.strategy-business.com/article/10-Principles-of-Strategic-Leadership" \
+    SHY_AUTHENTIC_LEADERS="https://hbr.org/2020/12/why-capable-people-are-reluctant-to-lead" \
+    EXHAUSTED_LEADERS="https://hbr.org/2020/12/how-to-lead-when-your-team-is-exhausted-and-you-are-too" \
     LAZY_LEADERS_HEROIC_MANAGERS="https://www.strategy-business.com/article/Lazy-leaders-and-heroic-managers" \
     ROOTS_IRRESPONSIBLE_BEHAVIOUR="The Roots of Corporate Socail Irresponsible Behaviour is Unrealistic Performance Expectations, a Pressure-Cooker Culture and Stress (https://www.zinio.com/de/reader/readsvg/447758/56)" \
     VISION="'We are stubborn on vision. We are flexible on details. We don’t give up on things easily.' (Jeff Bezos)" \
@@ -20,9 +22,13 @@ LABEL SUSTAINABLE_CULTURE="https://sloanreview.mit.edu/culture500/" \
     AUTHOR_GITHUB="https://github.com/danielschulz" \
     AUTHOR_DOCKER_HUB="https://hub.docker.com/u/danielschulz" \
     AUTHOR_MEDIUM="https://medium.com/@danielschulz.it" \
-    AUTHOR_WEBSITE="http://danielschulz.it"
+    AUTHOR_WEBSITE="http://danielschulz.it" \
+    AUTHOR_DATES="MjAxODEyMTMgMjAxODEyMTcgMjAxOTEwMTUgMjAyMDA4MjEgMjAyMDA5MjYK" \
+    THOUGH_LEADERSHIP_FINANCE_BLOG="https://medium.com/wbaa" \
+    DEAL_W_TECH_DEBT="https://medium.com/swlh/technical-air-pollution-the-reality-of-technical-debt-5afd96321f46" \
+    BUILD_TIME_ALPINE="20201228_1027 UTC"
 
 RUN apk update && \
-    apk add --no-cache nmap nmap-scripts nmap-nselibs curl wget bind-tools bash
+    apk add --no-cache nmap nmap-scripts nmap-nselibs curl wget bind-tools bash curl wget
 
 CMD [ "bash" ]
