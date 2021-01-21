@@ -1,4 +1,4 @@
-FROM alpine:3.12.3
+FROM alpine:3.13.0
 MAINTAINER Daniel Schulz <danielschulz2005@hotmail.com>
 
 LABEL SUSTAINABLE_CULTURE="https://sloanreview.mit.edu/culture500/" \
