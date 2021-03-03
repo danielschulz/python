@@ -1,5 +1,5 @@
 
-FROM danielschulz/rust-on-alpine:3.13
+FROM danielschulz/alpine:3.13
 
 LABEL BUILD_TIME_PYTHON="20210303_1425 UTC" \
       MAINTAINER="Daniel Schulz <danielschulz2005@hotmail.com>"
@@ -23,7 +23,7 @@ RUN set -eux; \
 
 # use 3.6, 3.7, 3.8, 3.9, (as of now, use "master" for 3.10)
 ARG CPYTHON_GIT_URI="https://github.com/danielschulz/cpython.git"
-ARG CPYTHON_GIT_REFERENCE="3.8"
+ARG CPYTHON_GIT_REFERENCE="3.8_20210303"
 ARG PYTHON_VERSION=${CPYTHON_GIT_REFERENCE}
 
 ENV PYTHON_VERSION=${PYTHON_VERSION}
