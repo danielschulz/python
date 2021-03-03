@@ -1,7 +1,7 @@
 
-FROM danielschulz/alpine:3.13.1
+FROM danielschulz/rust-on-alpine:3.13
 
-LABEL BUILD_TIME_PYTHON="20210210_1843 UTC" \
+LABEL BUILD_TIME_PYTHON="20210303_1425 UTC" \
       MAINTAINER="Daniel Schulz <danielschulz2005@hotmail.com>"
 
 # ensure local python is preferred over distribution python
@@ -23,7 +23,7 @@ RUN set -eux; \
 
 # use 3.6, 3.7, 3.8, 3.9, (as of now, use "master" for 3.10)
 ARG CPYTHON_GIT_URI="https://github.com/danielschulz/cpython.git"
-ARG CPYTHON_GIT_REFERENCE="v3.9.256rc"
+ARG CPYTHON_GIT_REFERENCE="3.9"
 ARG PYTHON_VERSION=${CPYTHON_GIT_REFERENCE}
 
 ENV PYTHON_VERSION=${PYTHON_VERSION}
