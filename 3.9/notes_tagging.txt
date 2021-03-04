@@ -1,0 +1,20 @@
+
+time docker push danielschulz/docker:20.10.5 ; echo $?
+time docker push danielschulz/docker:20.10 ; echo $?
+time docker push danielschulz/docker:20 ; echo $?
+
+
+time docker push danielschulz/docker-in-docker:20.10.5-dind ; echo $?
+time docker push danielschulz/docker-in-docker:20.10-dind ; echo $?
+time docker push danielschulz/docker-in-docker:20-dind ; echo $?
+
+
+time docker push danielschulz/docker-dind-python:3.9 ; echo $?
+time docker push danielschulz/docker-dind_20_10_5-python:3.9 ; echo $?
+time docker push danielschulz/docker-dind_20_10-python:3.9 ; echo $?
+time docker push danielschulz/docker-dind_20-python:3.9 ; echo $?
+
+
+time docker push danielschulz/docker-in-docker-20.10.5-dind-rootless-python:3.9 ; echo $?
+time docker push danielschulz/docker-in-docker-20.10-dind-rootless-python:3.9 ; echo $?
+time docker push danielschulz/docker-in-docker-20-dind-rootless-python:3.9 ; echo $?

@@ -1,0 +1,54 @@
+
+cd /apps/home/daniel/CG/CGD/Engagements/ZKA/20210210/Python/3.9/docker/docker_20-10/ || exit 1; \
+    time docker build -q --no-cache . \
+        -f ./Dockerfile \
+        --label DOCKER_VERSION="20.10.5" \
+        --label DOCKER="Docker CLI and Daemon in version 20.10.5" \
+        --label AUTHOR="Daniel Schulz" \
+        --label UTC_BUILD_TIME_DOCKER="$( date -u +%Y%m%d_%H%M )" \
+        -t danielschulz/docker:20.10.5 ; \
+    docker tag danielschulz/docker:20.10.5 danielschulz/docker:20.10 ; \
+    docker tag danielschulz/docker:20.10.5 danielschulz/docker:20 ; \
+    echo $?
+
+cd /apps/home/daniel/CG/CGD/Engagements/ZKA/20210210/Python/3.9/docker/docker_20-10/dind/ || exit 1; \
+    time docker build -q --no-cache . \
+        -f ./Dockerfile \
+        --label DOCKER_VERSION="20.10.5" \
+        --label DIND="Docker in Docker (DinD) as user root in version 20.10.5" \
+        --label AUTHOR="Daniel Schulz" \
+        --label UTC_BUILD_TIME_DIND_ROOT="$( date -u +%Y%m%d_%H%M )" \
+        -t danielschulz/docker-in-docker:20.10.5-dind ; \
+    docker tag danielschulz/docker-in-docker:20.10.5-dind danielschulz/docker-in-docker:20.10-dind ; \
+    docker tag danielschulz/docker-in-docker:20.10.5-dind danielschulz/docker-in-docker:20-dind ; \
+    echo $?
+
+
+cd /apps/home/daniel/CG/CGD/Engagements/ZKA/20210210/Python/3.9/docker/docker_20-10/alpine3.13/ || exit 1; \
+    time docker build -q --no-cache . \
+        -f ./Dockerfile \
+        --label DIND="Docker in Docker (DinD) as user root in version 20.10.5 w/ Python 3.9.256" \
+        --label DOCKER_VERSION="20.10.5" \
+        --label PYTHON_VERSION="3.9.256" \
+        --label AUTHOR="Daniel Schulz" \
+        --label UTC_BUILD_TIME_DIND_ROOT="$( date -u +%Y%m%d_%H%M )" \
+        -t danielschulz/docker-dind-python:3.9 ; \
+    docker tag danielschulz/docker-dind-python:3.9 danielschulz/docker-dind_20_10_5-python:3.9 ; \
+    docker tag danielschulz/docker-dind-python:3.9 danielschulz/docker-dind_20_10-python:3.9 ; \
+    docker tag danielschulz/docker-dind-python:3.9 danielschulz/docker-dind_20-python:3.9 ; \
+    echo $?
+
+
+cd /apps/home/daniel/CG/CGD/Engagements/ZKA/20210210/Python/3.9/docker/docker_20-10/dind-rootless/ || exit 1; \
+    time docker build -q --no-cache . \
+        -f ./Dockerfile \
+        --label DOCKER_VERSION="20.10.5" \
+        --label PYTHON_VERSION="3.9.256" \
+        --label DIND_ROOTLESS="Docker in Docker (DinD) rootless in version 20.10.5 w/ Python 3.9.256" \
+        --label AUTHOR="Daniel Schulz" \
+        --label UTC_BUILD_TIME_DIND_ROOTLESS="$( date -u +%Y%m%d_%H%M )" \
+        -t danielschulz/docker-in-docker-20.10.5-dind-rootless-python:3.9 ; \
+    docker tag danielschulz/docker-in-docker-20.10.5-dind-rootless-python:3.9 danielschulz/docker-in-docker-20.10-dind-rootless-python:3.9 ; \
+    docker tag danielschulz/docker-in-docker-20.10.5-dind-rootless-python:3.9 danielschulz/docker-in-docker-20-dind-rootless-python:3.9 ; \
+    echo $?
+
